@@ -14,18 +14,9 @@ def parse_arguments():
                         help='the action to perform')
     return parser.parse_args()
 
-def draw(test):
-    ''' Draw Secret Santas '''
-    print('draw (test: {})'.format(test))
-
-def notify(test):
-    ''' Notify participants by email '''
-    print('notify (test: {})'.format(test))
-
-def main():
-    ''' Main '''
-    args = parse_arguments()
-
+def interpret_arguments(args):
+    ''' Warn the user if test mode is off.
+        Return whether test mode is enabled '''
     if 'test' in args.action:
         test = True
     else:
@@ -38,6 +29,21 @@ def main():
             exit()
         else:
             test = False
+    return test
+
+def draw(test):
+    ''' Draw Secret Santas '''
+    print('draw (test: {})'.format(test))
+
+def notify(test):
+    ''' Notify participants by email '''
+    print('notify (test: {})'.format(test))
+
+def main():
+    ''' Main '''
+    args = parse_arguments()
+    test = interpret_arguments(args)
+
     draw(test)
     notify(test)
 
