@@ -3,6 +3,7 @@
 """ Helper script for "Secret Santa"-like events. """
 
 import argparse
+import configparser
 
 def parse_arguments():
     ''' Define and parse command line arguments '''
@@ -31,6 +32,19 @@ def interpret_arguments(args):
             test = False
     return test
 
+def read_config():
+    ''' Read the config.ni file '''
+    config = {
+        'participants' : [],
+    }
+    parser = configparser.ConfigParser()
+    parser.optionxform = str # don't convert keys to lower-case
+    if not parser.read('config.cfg', encoding='utf-8'):
+        print('-- Error: could not find config.cfg file, exiting.')
+        exit()
+    config['participants'] = list(parser['Participants'].items())
+    return config
+
 def draw(test):
     ''' Draw Secret Santas '''
     print('draw (test: {})'.format(test))
@@ -42,6 +56,7 @@ def notify(test):
 def main():
     ''' Main '''
     args = parse_arguments()
+    config = read_config()
     test = interpret_arguments(args)
 
     draw(test)
