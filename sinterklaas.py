@@ -4,6 +4,18 @@
 
 import argparse
 import configparser
+import copy
+import random
+
+class Person:
+    def __init__(self, name, email):
+        self.name = name
+        self.email = email
+        self.target = None
+    def __str__(self):
+        return "<%s: %s>" % (self.name, self.email)
+    def __repr__(self):
+        return "<%s: %s>" % (self.name, self.email)
 
 def parse_arguments():
     ''' Define and parse command line arguments '''
@@ -42,12 +54,27 @@ def read_config():
     if not parser.read('config.cfg', encoding='utf-8'):
         print('-- Error: could not find config.cfg file, exiting.')
         exit()
-    config['participants'] = list(parser['Participants'].items())
+    config['participants'] = [Person(name, email) for (name, email) in list(parser['Participants'].items())]
     return config
 
-def draw(test):
+def draw(people, test):
     ''' Draw Secret Santas '''
-    print('draw (test: {})'.format(test))
+    print("--- Draw in progress ---")
+    print("{} people are in the list:".format(len(people)))
+    for person in people: print(person)
+
+    # Create a randomized version of the list of people
+    randomized_people = copy.deepcopy(people)
+    random.shuffle(randomized_people)
+    
+    # Each person's target is their successor in the randomized list
+    for i, person in enumerate(randomized_people):
+        person.target = randomized_people[(i+1) % len(randomized_people)]
+
+    print("--- Draw finished ---")
+    for person in randomized_people: print("{} picked {}".format(person.name, person.target.name))
+
+    return randomized_people
 
 def notify(test):
     ''' Notify participants by email '''
@@ -59,7 +86,8 @@ def main():
     config = read_config()
     test = interpret_arguments(args)
 
-    draw(test)
+    people = config['participants']
+    people = draw(people, test)
     notify(test)
 
 if __name__ == "__main__":
