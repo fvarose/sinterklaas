@@ -89,17 +89,17 @@ def notify(people):
         for person in people:
             # Create message
             msg = ("From: %s\r\nTo: %s\r\nSubject: Mail automatique de tirage au sort pour la Saint-Nicolas\r\n\r\n" % (email, person.email))
-            msg += "Bonsoir " + person.name + ",\nL'ordinateur a parlé (à nouveau), tu dois offrir un cadeau à " + person.target.name + ".\n"
+            msg += "Bonsoir " + person.name + ",\nL'ordinateur a parlé, tu dois offrir un cadeau à " + person.target.name + ".\n"
             msg += "Merci de conserver ce message, il ne sera délivré aucun duplicata du fait de sa génération automatique au moment du tirage au sort.\n\n"
             msg += "Rappel des modalités:\n"
-            msg += "\t- RDV le vendredi 30 décembre chez Lolo (9 rue de la Piquetière)\n"
+            msg += "\t- RDV le samedi 16 décembre chez Lolo (9 rue de la Piquetière)\n"
             msg += "\t- prix max du cadeau: 15 euros\n"
             msg += "\t- l'emballage doit être original, si possible en rapport avec le cadeau ou la personne\n"
             msg += "\t- un poème devra être joint au tout, idéalement aussi en rapport avec le cadeau ou la personne\n"
-            msg += "\t- suite à une remarque pertinente de Pillou il y a trois ans et dans un soucis d'ouverture culturelle, les Haiku seront tolérés\n"
+            msg += "\t- suite à une remarque pertinente de Pillou il y a quatre ans et dans un soucis d'ouverture culturelle, les Haiku seront tolérés\n"
             msg += "\n\n"
             msg += "Ceci est un message automatique, merci de ne pas y répondre sous risque de dévoiler votre cible à l'organisateur.\n"
-            msg += "Pour toute réclamation ou compliment sur la qualité ce système de tirage au sort innovant, contactez le +49 176 47 604 102"
+            msg += "Pour toute réclamation ou compliment sur la qualité ce système de tirage au sort innovant, merci d'ouvrir un ticket: https://github.com/fvarose/sinterklaas/issues/new"
 
             # Send the email
             server = smtplib.SMTP('smtp.gmail.com:587')
