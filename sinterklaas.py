@@ -114,7 +114,7 @@ def notify(people):
         print(err)
 
 def main():
-    ''' Main '''
+    ''' main '''
     args = parse_arguments()
     config = read_config()
     test = interpret_arguments(args)
