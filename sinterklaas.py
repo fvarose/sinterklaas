@@ -47,7 +47,7 @@ def interpret_arguments(args):
     return test
 
 def read_config():
-    ''' Read the config.ni file '''
+    ''' Read the config.ini file '''
     config = {
         'participants' : [],
     }
